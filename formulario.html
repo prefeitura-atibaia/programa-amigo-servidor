@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa Amigo do Servidor</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #f3f0e9;
+      font-family: Arial, sans-serif;
+      color: #111;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+
+    .banner {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 12px;
+    }
+
+    .top-border {
+      border-top: 10px solid #c7c1b1;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 400;
+      margin: 0 0 20px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .required {
+      color: red;
+    }
+
+    .required-info {
+      color: red;
+      font-size: 14px;
+    }
+
+    .section-card {
+      background: #c7c1b1;
+      font-weight: bold;
+      font-style: italic;
+      padding: 18px 24px;
+    }
+
+    .question-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 28px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"] {
+      border: none;
+      border-bottom: 1px solid #ccc;
+      outline: none;
+      padding: 8px 3px;
+      font-size: 14px;
+      width: 70%;
+      background: transparent;
+    }
+
+    input:focus {
+      border-bottom: 2px solid #1a73e8;
+    }
+
+    .benefit-option,
+    .radio-option,
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+    }
+
+    .small-line {
+      width: 70px !important;
+      text-align: center;
+    }
+
+    .large-line {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .assinatura-box {
+      margin-top: 25px;
+      padding-top: 18px;
+      border-top: 1px solid #ddd;
+    }
+
+    .assinatura-box h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .assinatura-box label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .assinatura-info {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 30px;
+    }
+
+    button {
+      background: #c7c1b1;
+      color: #333;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #b7b09f;
+    }
+
+    .clear-btn {
+      background: transparent;
+      color: #7a641f;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="number"] {
+        width: 100%;
+      }
+
+      .large-line {
+        min-width: 100%;
+        margin-left: 28px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+      }
+    }
+
+    /* ================= POPUP ================= */
+
+.popup-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup{
+    width:450px;
+    max-width:90%;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,.30);
+    animation:popup .35s;
+}
+
+.popup img{
+    width:100%;
+    display:block;
+}
+
+.popup-body{
+    padding:30px;
+    text-align:center;
+}
+
+.popup-body h2{
+    color:#0d4f9c;
+    margin:0;
+}
+
+.popup-body p{
+    margin:18px 0;
+    color:#555;
+    line-height:1.7;
+}
+
+.popup button{
+    width:100%;
+    background:#0d4f9c;
+    color:#fff;
+    padding:15px;
+    font-size:16px;
+    border:none;
+    cursor:pointer;
+}
+
+.popup button:hover{
+    background:#083d79;
+}
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:scale(.85);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+  .loading-overlay{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:rgba(255,255,255,.95);
+
+z-index:99999;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.loading-box{
+
+text-align:center;
+
+}
+
+.loading-logo{
+
+width:260px;
+
+margin-bottom:25px;
+
+}
+
+.spinner{
+
+width:60px;
+
+height:60px;
+
+border:6px solid #ddd;
+
+border-top:6px solid #0b5cab;
+
+border-radius:50%;
+
+margin:auto;
+
+animation:girar 1s linear infinite;
+
+}
+
+@keyframes girar{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+  .popup-info{
+    margin-top:20px;
+    background:#f3f8fd;
+    border-left:4px solid #0d4f9c;
+    padding:15px;
+    text-align:left;
+    border-radius:6px;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <img src="logo projeto amigo.png" alt="Programa Amigo do Servidor" class="banner">
+
+    <div class="card top-border">
+      <h1>FORMULÁRIO DE INTERESSE</h1>
+
+      <p><strong>PROGRAMA AMIGO DO SERVIDOR</strong></p>
+
+      <p>
+        Prefeitura da Estância de Atibaia<br>
+        Obrigado pelo interesse em participar do Programa Amigo do Servidor.
+      </p>
+
+      <p>
+        Este programa tem como objetivo valorizar os servidores públicos municipais
+        por meio de parcerias voluntárias com empresas e prestadores de serviços do município.
+      </p>
+
+      <p class="required-info">* Indica uma pergunta obrigatória</p>
+    </div>
+
+    <form id="formulario">
+
+      <div class="card section-card">DADOS DA EMPRESA</div>
+
+      <div class="card">
+        <div class="question-title">1. Nome da Empresa <span class="required">*</span></div>
+        <input type="text" id="empresa" placeholder="Sua resposta">
+      </div>
+
+      <div class="card">
+        <div class="question-title">2. CNPJ <span class="required">*</span></div>
+        <input type="text" id="cnpj" placeholder="Sua resposta">
+      </div>
+
+      <div class="card">
+        <div class="question-title">3. Telefone / WhatsApp <span class="required">*</span></div>
+        <input type="tel" id="telefone" placeholder="Sua resposta">
+      </div>
+
+      <div class="card">
+        <div class="question-title">4. E-mail <span class="required">*</span></div>
+        <input type="email" id="email" placeholder="Sua resposta">
+      </div>
+
+      <div class="card">
+        <div class="question-title">5. Nome do Responsável <span class="required">*</span></div>
+        <input type="text" id="responsavel" placeholder="Sua resposta">
+      </div>
+
+      <div class="card section-card">BENEFÍCIO OFERECIDO</div>
+
+      <div class="card">
+        <div class="question-title">
+          6. Qual benefício sua empresa deseja oferecer aos servidores municipais?
+          <span class="required">*</span>
+        </div>
+
+        <label class="benefit-option">
+          <input type="checkbox" id="checkDesconto">
+          Desconto de
+          <input type="number" id="percentual" class="small-line" min="1" max="100">
+          % sobre
+          <input 
+            type="text" 
+            id="produtoDesconto" 
+            class="large-line" 
+            placeholder="Ex: todos os produtos, almoço, roupas, serviços..."
+          >
+        </label>
+
+        <label class="benefit-option">
+          <input type="checkbox" id="checkBrinde">
+          Brinde, isenção de taxa ou condição especial:
+          <input 
+            type="text" 
+            id="brinde" 
+            class="large-line" 
+            placeholder="Especifique o benefício"
+          >
+        </label>
+
+        <label class="benefit-option">
+          <input type="checkbox" id="checkOutros">
+          Outros:
+          <input 
+            type="text" 
+            id="outros" 
+            class="large-line" 
+            placeholder="Especifique qual outro benefício"
+          >
+        </label>
+      </div>
+
+      <div class="card section-card">DIVULGAÇÃO</div>
+
+      <div class="card">
+        <div class="question-title">
+          7. Autoriza a divulgação da empresa nos canais oficiais da Prefeitura?
+          <span class="required">*</span>
+        </div>
+
+        <label class="radio-option">
+          <input type="radio" name="divulgacao" value="Sim">
+          Sim
+        </label>
+
+        <label class="radio-option">
+          <input type="radio" name="divulgacao" value="Não">
+          Não
+        </label>
+      </div>
+
+      <div class="card section-card">DECLARAÇÃO E ASSINATURA DIGITAL</div>
+
+      <div class="card">
+        <p>
+          Declaro que as informações prestadas neste formulário são verdadeiras e de minha inteira responsabilidade.
+          Manifesto, de forma livre, voluntária e gratuita, o interesse do estabelecimento em aderir ao Programa
+          Amigo do Servidor, instituído pelo Decreto Municipal nº 11.448/2025, comprometendo-me a cumprir os
+          benefícios informados e autorizando a divulgação da participação do estabelecimento nos canais institucionais
+          da Prefeitura da Estância de Atibaia, nos termos do regulamento vigente.
+        </p>
+
+        <label class="check-option">
+          <input type="checkbox" id="declaracao">
+          Li e concordo com os termos acima.
+        </label>
+
+        <div class="assinatura-box">
+          <h3>Assine digitalmente</h3>
+
+          <label>Nome completo do responsável legal *</label>
+          <input type="text" id="nomeAssinatura" placeholder="Digite o nome completo">
+
+          <label>CPF do responsável legal *</label>
+          <input type="text" id="cpfAssinatura" placeholder="000.000.000-00">
+
+          <p class="assinatura-info">
+            Ao enviar este formulário, declaro que estou assinando digitalmente este Termo de Adesão.
+          </p>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Enviar</button>
+        <button type="button" class="clear-btn" onclick="limparFormulario()">Limpar formulário</button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("formulario");
+
+const urlGoogleSheets = "https://script.google.com/macros/s/AKfycby4GDkCwik6AdAmJ40iRYAo3x_aHfqQStV_x0Zb2nvEwv78q4DtAomUoFLDQoHvbB9Lhg/exec";
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const empresa = document.getElementById("empresa").value.trim();
+      const cnpj = document.getElementById("cnpj").value.trim();
+      const telefone = document.getElementById("telefone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const responsavel = document.getElementById("responsavel").value.trim();
+
+      const checkDesconto = document.getElementById("checkDesconto").checked;
+      const checkBrinde = document.getElementById("checkBrinde").checked;
+      const checkOutros = document.getElementById("checkOutros").checked;
+
+      const percentual = document.getElementById("percentual").value;
+      const produtoDesconto = document.getElementById("produtoDesconto").value.trim();
+      const brinde = document.getElementById("brinde").value.trim();
+      const outros = document.getElementById("outros").value.trim();
+
+      const divulgacao = document.querySelector('input[name="divulgacao"]:checked');
+      const declaracao = document.getElementById("declaracao").checked;
+
+      const nomeAssinatura = document.getElementById("nomeAssinatura").value.trim();
+      const cpfAssinatura = document.getElementById("cpfAssinatura").value.trim();
+
+      if (!empresa || !cnpj || !telefone || !email || !responsavel) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+      }
+
+      if (!checkDesconto && !checkBrinde && !checkOutros) {
+        alert("Selecione pelo menos um benefício.");
+        return;
+      }
+
+      if (checkDesconto && (percentual === "" || percentual < 1 || percentual > 100)) {
+        alert("Informe um percentual entre 1 e 100.");
+        return;
+      }
+
+      if (checkDesconto && produtoDesconto === "") {
+        alert("Informe sobre quais produtos ou serviços o desconto será aplicado.");
+        return;
+      }
+
+      if (checkBrinde && brinde === "") {
+        alert("Descreva o brinde, isenção ou condição especial.");
+        return;
+      }
+
+      if (checkOutros && outros === "") {
+        alert("Descreva o benefício em Outros.");
+        return;
+      }
+
+      if (!divulgacao) {
+        alert("Informe se autoriza a divulgação da empresa.");
+        return;
+      }
+
+      if (!declaracao) {
+        alert("Você precisa aceitar a declaração para enviar.");
+        return;
+      }
+
+      if (nomeAssinatura === "") {
+        alert("Informe o nome completo do responsável legal.");
+        return;
+      }
+
+      if (cpfAssinatura === "") {
+        alert("Informe o CPF do responsável legal.");
+        return;
+      }
+
+      const dados = {
+        empresa: empresa,
+        cnpj: cnpj,
+        telefone: telefone,
+        email: email,
+        responsavel: responsavel,
+        desconto: checkDesconto ? percentual + "% sobre " + produtoDesconto : "",
+        percentual: checkDesconto ? percentual + "%" : "",
+        produtoDesconto: checkDesconto ? produtoDesconto : "",
+        brinde: checkBrinde ? brinde : "",
+        outros: checkOutros ? outros : "",
+        divulgacao: divulgacao.value,
+        declaracao: declaracao ? "Sim" : "Não",
+        nomeAssinatura: nomeAssinatura,
+        cpfAssinatura: cpfAssinatura
+      };
+
+        document.getElementById("loading").style.display="flex";
+
+      fetch(urlGoogleSheets, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+      })
+      .then(() => {
+
+    setTimeout(() => {
+
+        document.getElementById("loading").style.display = "none";
+
+        mostrarPopup();
+
+        form.reset();
+
+    }, 1500);
+
+})
+
+}); 
+
+function limparFormulario() {
+    form.reset();
+}
+
+    function limparFormulario() {
+      form.reset();
+    }
+
+      function mostrarPopup(){
+
+document.getElementById("popupSucesso").style.display="flex";
+
+}
+
+function fecharPopup(){
+
+document.getElementById("popupSucesso").style.display="none";
+
+}
+
+  </script>
+
+  <div id="popupSucesso" class="popup-overlay">
+
+    <div class="popup">
+
+        <img src="logo projeto amigo.png">
+
+        <div class="popup-body">
+            <h2>✅ Formulário enviado com sucesso!</h2>
+
+            <p>
+                Sua solicitação de adesão foi registrada com sucesso no
+                <strong>Programa Amigo do Servidor</strong>.
+           </p>
+
+              <div class="popup-info">
+
+             <b>Próximas etapas</b>
+
+          <br><br>
+
+        • O Termo de Adesão será gerado automaticamente.
+
+          <br>
+
+        • Uma cópia será enviada ao e-mail informado.
+
+          <br>
+
+        • A Secretaria de Recursos Humanos analisará a solicitação.
+
+    </div>
+
+<button onclick="fecharPopup()">
+
+Fechar
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="loading" class="loading-overlay">
+    <div class="loading-box">
+
+        <img src="logo projeto amigo.png" class="loading-logo">
+
+        <div class="spinner"></div>
+
+        <h2>Enviando formulário...</h2>
+
+        <p>
+            Aguarde alguns instantes.<br>
+            Estamos gerando seu Termo de Adesão.
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>
