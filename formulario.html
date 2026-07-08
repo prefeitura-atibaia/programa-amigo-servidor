@@ -349,28 +349,6 @@ transform:rotate(360deg);
     border-bottom:2px solid #34a853 !important;
 }
 
-.aceite-final{
-    margin-top:25px;
-    padding:18px;
-    background:#f4f8fc;
-    border:1px solid #d8e3f0;
-    border-left:5px solid #0d4f9c;
-    border-radius:8px;
-}
-
-.aceite-final strong{
-    display:block;
-    margin-bottom:12px;
-    color:#0d4f9c;
-    font-size:15px;
-}
-
-.aceite-final .check-option{
-    margin:0;
-    font-size:15px;
-    font-weight:bold;
-}
-
   </style>
 </head>
 
@@ -504,44 +482,24 @@ transform:rotate(360deg);
         </p>
 
         <label class="check-option">
-           <input type="checkbox" id="declaracao">
-             Li e concordo com os termos acima.
+          <input type="checkbox" id="declaracao">
+          Li e concordo com os termos acima.
         </label>
 
         <div class="assinatura-box">
+          <h3>Assine digitalmente</h3>
 
-    <h3>Assinatura Eletrônica</h3>
+          <label>Nome completo do responsável legal *</label>
+          <input type="text" id="nomeAssinatura" placeholder="Digite o nome completo">
 
-    <label>Nome completo do responsável legal <span class="required">*</span></label>
-    <input
-        type="text"
-        id="nomeAssinatura"
-        placeholder="Digite o nome completo">
+          <label>CPF do responsável legal *</label>
+          <input type="text" id="cpfAssinatura" placeholder="000.000.000-00">
 
-    <label>CPF do responsável legal <span class="required">*</span></label>
-    <input
-        type="text"
-        id="cpfAssinatura"
-        placeholder="000.000.000-00">
-
-    <div class="aceite-final">
-
-        <strong>DECLARAÇÃO</strong>
-
-        <label class="check-option">
-          <input type="checkbox" id="declaracaoAssinatura">
-              Li e concordo integralmente com a assinatura deste documento.
-        </label>
-
-    </div>
-
-    <p class="assinatura-info">
-        Ao clicar em <strong>Enviar</strong>, declaro que estou realizando
-        a assinatura eletrônica deste Termo de Adesão e assumo integral
-        responsabilidade pelas informações prestadas.
-    </p>
-
-</div>
+          <p class="assinatura-info">
+            Ao enviar este formulário, declaro que estou assinando digitalmente este Termo de Adesão.
+          </p>
+        </div>
+      </div>
 
       <div class="buttons">
         <button type="submit">Enviar</button>
@@ -607,8 +565,7 @@ const urlGoogleSheets = "https://script.google.com/macros/s/AKfycby4GDkCwik6AdAm
       const outros = document.getElementById("outros").value.trim();
 
       const divulgacao = document.querySelector('input[name="divulgacao"]:checked');
-      const declaracaoTermos = document.getElementById("declaracaoTermos").checked;
-      const declaracaoAssinatura = document.getElementById("declaracaoAssinatura").checked;
+      const declaracao = document.getElementById("declaracao").checked;
 
       const nomeAssinatura = document.getElementById("nomeAssinatura").value.trim();
       const cpfAssinatura = document.getElementById("cpfAssinatura").value.trim();
@@ -695,14 +652,9 @@ if(!emailRegex.test(email)){
         return;
       }
 
-      if (!declaracaoTermos) {
-        alert("Você precisa marcar: Li e concordo com os termos acima.");
+      if (!declaracao) {
+        alert("Você precisa aceitar a declaração para enviar.");
         return;
-      }
-
-      if (!declaracaoAssinatura) {
-        alert("Você precisa marcar: Li e concordo integralmente com a assinatura deste documento.");
-         return;
       }
 
       if (nomeAssinatura === "") {
@@ -727,8 +679,7 @@ if(!emailRegex.test(email)){
         brinde: checkBrinde ? brinde : "",
         outros: checkOutros ? outros : "",
         divulgacao: divulgacao.value,
-        declaracao: declaracaoTermos ? "Sim" : "Não",
-        declaracaoAssinatura: declaracaoAssinatura ? "Sim" : "Não",
+        declaracao: declaracao ? "Sim" : "Não",
         nomeAssinatura: nomeAssinatura,
         cpfAssinatura: cpfAssinatura
       };
