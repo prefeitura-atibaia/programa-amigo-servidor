@@ -504,7 +504,7 @@ transform:rotate(360deg);
         </p>
 
         <label class="check-option">
-           <input type="checkbox" id="declaracao">
+           <input type="checkbox" id="declaracaoTermos">             
              Li e concordo com os termos acima.
         </label>
 
@@ -529,7 +529,7 @@ transform:rotate(360deg);
         <strong>DECLARAÇÃO</strong>
 
         <label class="check-option">
-            <input type="checkbox" id="declaracao">
+           <input type="checkbox" id="declaracaoAssinatura">
             Li e concordo integralmente com a assinatura deste documento.
         </label>
 
@@ -607,7 +607,11 @@ const urlGoogleSheets = "https://script.google.com/macros/s/AKfycby4GDkCwik6AdAm
       const outros = document.getElementById("outros").value.trim();
 
       const divulgacao = document.querySelector('input[name="divulgacao"]:checked');
-      const declaracao = document.getElementById("declaracao").checked;
+      const declaracaoTermos =
+      document.getElementById("declaracaoTermos").checked;
+
+      const declaracaoAssinatura =
+      document.getElementById("declaracaoAssinatura").checked;
 
       const nomeAssinatura = document.getElementById("nomeAssinatura").value.trim();
       const cpfAssinatura = document.getElementById("cpfAssinatura").value.trim();
@@ -694,10 +698,25 @@ if(!emailRegex.test(email)){
         return;
       }
 
-      if (!declaracao) {
-        alert("Você precisa aceitar a declaração para enviar.");
-        return;
-      }
+      if (!declaracaoTermos) {
+    alert(
+        "Para continuar é obrigatório marcar:\n\n" +
+        "✔ Li e concordo com os termos acima."
+    );
+
+    document.getElementById("declaracaoTermos").focus();
+    return;
+}
+
+if (!declaracaoAssinatura) {
+    alert(
+        "Para concluir o envio é obrigatório marcar:\n\n" +
+        "✔ Li e concordo integralmente com a assinatura deste documento."
+    );
+
+    document.getElementById("declaracaoAssinatura").focus();
+    return;
+}
 
       if (nomeAssinatura === "") {
         alert("Informe o nome completo do responsável legal.");
@@ -721,7 +740,8 @@ if(!emailRegex.test(email)){
         brinde: checkBrinde ? brinde : "",
         outros: checkOutros ? outros : "",
         divulgacao: divulgacao.value,
-        declaracao: declaracao ? "Sim" : "Não",
+        declaracao: declaracaoTermos ? "Sim" : "Não",
+        declaracaoAssinatura: declaracaoAssinatura ? "Sim" : "Não",
         nomeAssinatura: nomeAssinatura,
         cpfAssinatura: cpfAssinatura
       };
