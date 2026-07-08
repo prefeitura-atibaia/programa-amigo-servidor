@@ -687,36 +687,30 @@ if(!emailRegex.test(email)){
         document.getElementById("loading").style.display="flex";
 
       fetch(urlGoogleSheets, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-      })
-      .then(() => {
-
-    setTimeout(() => {
-
-        document.getElementById("loading").style.display = "none";
-
-        mostrarPopup();
-
-        form.reset();
-
-    }, 1500);
-
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(dados)
 })
+.then(() => {
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    mostrarPopup();
+    form.reset();
+  }, 1500);
+})
+.catch(() => {
+  document.getElementById("loading").style.display = "none";
+  alert("Erro ao enviar. Tente novamente.");
+});
 
 }); 
 
 function limparFormulario() {
-    form.reset();
+  form.reset();
 }
-
-    function limparFormulario() {
-      form.reset();
-    }
 
       function mostrarPopup(){
 
