@@ -529,8 +529,8 @@ transform:rotate(360deg);
         <strong>DECLARAÇÃO</strong>
 
         <label class="check-option">
-            <input type="checkbox" id="declaracao">
-            Li e concordo integralmente com a assinatura deste documento.
+          <input type="checkbox" id="declaracaoAssinatura">
+              Li e concordo integralmente com a assinatura deste documento.
         </label>
 
     </div>
@@ -607,7 +607,8 @@ const urlGoogleSheets = "https://script.google.com/macros/s/AKfycby4GDkCwik6AdAm
       const outros = document.getElementById("outros").value.trim();
 
       const divulgacao = document.querySelector('input[name="divulgacao"]:checked');
-      const declaracao = document.getElementById("declaracao").checked;
+      const declaracaoTermos = document.getElementById("declaracaoTermos").checked;
+      const declaracaoAssinatura = document.getElementById("declaracaoAssinatura").checked;
 
       const nomeAssinatura = document.getElementById("nomeAssinatura").value.trim();
       const cpfAssinatura = document.getElementById("cpfAssinatura").value.trim();
@@ -694,9 +695,14 @@ if(!emailRegex.test(email)){
         return;
       }
 
-      if (!declaracao) {
-        alert("Você precisa aceitar a declaração para enviar.");
+      if (!declaracaoTermos) {
+        alert("Você precisa marcar: Li e concordo com os termos acima.");
         return;
+      }
+
+      if (!declaracaoAssinatura) {
+        alert("Você precisa marcar: Li e concordo integralmente com a assinatura deste documento.");
+         return;
       }
 
       if (nomeAssinatura === "") {
@@ -721,7 +727,8 @@ if(!emailRegex.test(email)){
         brinde: checkBrinde ? brinde : "",
         outros: checkOutros ? outros : "",
         divulgacao: divulgacao.value,
-        declaracao: declaracao ? "Sim" : "Não",
+        declaracao: declaracaoTermos ? "Sim" : "Não",
+        declaracaoAssinatura: declaracaoAssinatura ? "Sim" : "Não",
         nomeAssinatura: nomeAssinatura,
         cpfAssinatura: cpfAssinatura
       };
